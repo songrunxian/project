@@ -23,8 +23,11 @@
        void a##_runxian_##b()
 
 #define EXPECT(a, b, comp) {\
-	printf(GREEN("[----------] ") #a " " #comp " " #b ); \
-	printf(" %s\n", (a) comp (b) ? GREEN_HIGH("true"): RED_HIGH("false")); \
+	printf(GREEN("[-----------] ") #a " " #comp " " #b ); \
+	__typeof(a) _a = (a), _b = (b); \
+	test_info.total += 1; \
+	if(_a comp _b) test_info.success += 1; \
+	printf(" %s\n", (_a) comp (_b) ? GREEN_HIGH("true"): RED_HIGH("false")); \
 }
 #define EXPECT_EQ(a, b) EXPECT(a, b, ==)
 #define EXPECT_LT(a, b) EXPECT(a, b, <)
@@ -39,6 +42,12 @@ struct Node{
 	TestFuncT func;
 	const char * str;
 };
+
+struct FunctionInfo {
+	int32_t total;
+	int32_t success;
+};
+extern struct FunctionInfo test_info;
 
 int32_t RUN_ALL_TESTS();
 void add_function(TestFuncT, const char *);
