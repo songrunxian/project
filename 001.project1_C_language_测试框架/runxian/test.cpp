@@ -8,7 +8,7 @@ Node func_arr[100];
 
 int32_t RUN_ALL_TESTS() {
 	for (int32_t i = 0; i < func_cnt; i++) {
-		printf("Run test is : %s\n", func_arr[i].str);
+		printf( RED_HIGH("[=====Running=====]") YELLOW_HIGH(" %s\n"), func_arr[i].str );
 		func_arr[i].func();
 		printf("Run end\n");
 	}
