@@ -1,0 +1,32 @@
+遗憾 可能由于G++版本的原因，我目前无法调用test.h中如下：
+#define TYPE_STR(a) _Generic((a), \
+    int : "%d", \
+    double : "%lf", \
+    float : "%f", \
+    long long : "%lld", \
+    const char * : "%s" \
+)
+
+#define P(a, color) { \
+    char frm[1000]; \
+    sprintf(frm, color("%s"), TYPE_STR(a)); \
+    printf(frm, a); \
+}
+
+#define EXPECT(a, b, comp) { \
+    __typeof(a) _a = (a); \
+    __typeof(b) _b = (b); \
+    haizei_test_info.total += 1; \
+    if (_a comp _b) haizei_test_info.success += 1; \
+    else { \
+        printf("\n"); \
+        printf(YELLOW_HL("\t%s:%d: Failure\n"), __FILE__, __LINE__); \
+        printf(YELLOW_HL("\t\texpect" #a " " #comp " " #b " actual : ")); \
+        P(_a, YELLOW_HL); \
+        P(" vs ", YELLOW_HL); \
+        P(_b, YELLOW_HL); \
+        printf("\n\n"); \
+    } \
+    printf(GREEN("[-----------] ") #a " " #comp " " #b); \
+    printf(" %s\n", (_a) comp (_b) ? GREEN_HL("TRUE") : RED_HL("FALSE")); \
+}

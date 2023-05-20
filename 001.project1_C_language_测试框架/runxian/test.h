@@ -8,12 +8,14 @@
 #define RED(a) COLOR(a, 31)
 #define BLUE(a) COLOR(a, 34)
 #define YELLOW(a) COLOR(a, 33)
+#define PURPLE(a) COLOR(a, 35)
 
 #define COLOR_HIGH(a, b) "\033[1;" #b "m" a "\033[0m"
 #define GREEN_HIGH(a) COLOR_HIGH(a, 32)
 #define RED_HIGH(a) COLOR_HIGH(a, 31)
 #define BLUE_HIGH(a) COLOR_HIGH(a, 34)
 #define YELLOW_HIGH(a) COLOR_HIGH(a, 33)
+#define PURPLE_HIGH(a) COLOR_HIGH(a, 35)
 
 #define TEST(a, b) void a##_runxian_##b(); \
        __attribute__((constructor)) \
@@ -22,11 +24,33 @@
        }\
        void a##_runxian_##b()
 
+#define P(a, color) { \
+    char frm[1000]; \
+    sprintf(frm, color("%d"), a); \
+    printf(frm, a); \
+}
+
+#define PS(a, color) { \
+    char frm[1000]; \
+    sprintf(frm, color("%s"), a); \
+    printf(frm, a); \
+}
+
 #define EXPECT(a, b, comp) {\
 	printf(GREEN("[-----------] ") #a " " #comp " " #b ); \
-	__typeof(a) _a = (a), _b = (b); \
+	__typeof(a) _a = (a); \
+        __typeof(b) _b = (b); \
 	test_info.total += 1; \
-	if(_a comp _b) test_info.success += 1; \
+	if(_a comp _b) test_info.success += 1; else {\
+		        printf("\n"); \
+        		printf(PURPLE_HIGH("\t%s:%d: Failure\n"), __FILE__, __LINE__); \
+        		printf(PURPLE_HIGH("\t\texpect" #a " " #comp " " #b " actual : ")); \
+        		P(_a, PURPLE_HIGH); \
+        		PS(" vs ", PURPLE_HIGH); \
+        		P(_b, PURPLE_HIGH); \
+        		printf("\n\n"); \
+	}\
+	printf(GREEN("[-----------] ") #a " " #comp " " #b ); \
 	printf(" %s\n", (_a) comp (_b) ? GREEN_HIGH("true"): RED_HIGH("false")); \
 }
 #define EXPECT_EQ(a, b) EXPECT(a, b, ==)

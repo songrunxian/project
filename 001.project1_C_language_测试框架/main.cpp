@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <runxian/test.h>
-#include <stdint.h>
 
-int32_t add(int32_t a, int32_t b) {
+int add(int a, int b) {
 	return a + b;
 }
 
@@ -27,6 +26,6 @@ TEST(testFunc,third) {
 	EXPECT_NE(add(6,7), 20);
 }
 
-int32_t main(int32_t argc, char *argv[]) {
+int main(int argc, char *argv[]) {
 	return RUN_ALL_TESTS();
 }
