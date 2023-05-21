@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <runxian/test.h>
+#include <runxian/linklist.h>
 
 int add(int a, int b) {
 	return a + b;

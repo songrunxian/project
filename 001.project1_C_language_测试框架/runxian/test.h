@@ -1,6 +1,7 @@
 #ifndef _TEST_H
 #define _TEST_H
 
+#include <runxian/linklist.h>
 #include <stdint.h>
 
 #define COLOR(a, b) "\033[" #b "m" a "\033[0m"
@@ -37,7 +38,6 @@
 }
 
 #define EXPECT(a, b, comp) {\
-	printf(GREEN("[-----------] ") #a " " #comp " " #b ); \
 	__typeof(a) _a = (a); \
         __typeof(b) _b = (b); \
 	test_info.total += 1; \
@@ -65,6 +65,7 @@ typedef void (*TestFuncT) ();
 struct Node{
 	TestFuncT func;
 	const char * str;
+	struct LinkNode p;
 };
 
 struct FunctionInfo {

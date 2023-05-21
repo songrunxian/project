@@ -1,20 +1,21 @@
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdint.h>
+#include <runxian/linklist.h>
 #include <runxian/test.h>
 #include <math.h>
 
-int32_t func_cnt = 0;
-Node func_arr[100];
-
+struct Node func_head, *func_tail = &func_head;
 struct FunctionInfo test_info;
 
 int32_t RUN_ALL_TESTS() {
-	for (int32_t i = 0; i < func_cnt; i++) {
-		printf( RED_HIGH("[=====Running=====]") YELLOW_HIGH(" %s\n"), func_arr[i].str );
+	for (struct LinkNode *p = func_head.p.next; p; p = p->next ) {
+		struct Node *func = Head(p, struct Node, p);
+		printf( RED_HIGH("[=====Running=====]") YELLOW_HIGH(" %s\n"), func->str );
 		test_info.total = 0;
 		test_info.success = 0;
-		func_arr[i].func();
+		func->func();
 		double rate = 100.0 * test_info.success / test_info.total;
 		printf(GREEN_HIGH("[  "));
 		if(fabs(rate - 100.0) < 1e-6) {
@@ -27,14 +28,17 @@ int32_t RUN_ALL_TESTS() {
 			test_info.total,
 			test_info.success
 		);
-		printf("Run end\n");
+		printf(RED_HIGH("[==========Run end==========]\n"));
+		printf("\n");
 	}
 	return 0;
 }
 
 void add_function(TestFuncT FUNC, const char *str) {
-	func_arr[func_cnt].func = FUNC;
-	func_arr[func_cnt].str = strdup(str);
-        func_cnt++;
+	struct Node *temp = (struct Node *) calloc(1, sizeof(struct Node));
+	temp->func = FUNC;
+	temp->str = strdup(str);
+	func_tail->p.next = &(temp->p);
+	func_tail = temp;
 	return ;       
 }
