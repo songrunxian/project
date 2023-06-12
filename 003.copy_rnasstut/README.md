@@ -11,8 +11,8 @@ vagrant up
 ```
 This is an method about finding various RNA structure prediction methods
 # Tutorial:
-Now ,we need to know what is biopython:\n
-Biopython是一个用于生物信息学的Python库，提供了许多用于处理生物序列、结构和数据的工具和函数.\n
+Now ,we need to know what is biopython:  
+Biopython是一个用于生物信息学的Python库，提供了许多用于处理生物序列、结构和数据的工具和函数.  
 And ,this method use two ways to find RNA structure ------ "RNAstructure", this package is not a package in Biopython.
 "RNAstructure"是一个独立的软件包，用于预测和分析RNA的二级结构。它是由University of Rochester Medical Center的David H. Mathews实验室开发的，可以用于预测RNA分子的结构、热力学参数和相互作用能。
 ```
