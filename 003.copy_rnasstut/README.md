@@ -66,6 +66,7 @@ export DATAPATH=~/RNAstructure/data_tables
 We can now run `Fold` to predict the RNA structure:
 ```
 ~/RNAstructure/exe/Fold ~/data/18s.fasta ~/18s_rnastructure_pred.txt
+or please read 001.Fold.sh
 ```
 `~/data/18S_rRNA.fasta` is the input sequence (18S rRNA in fasta format).
 `~/18s_rnastructure_pred.txt` is the output file.
@@ -82,5 +83,16 @@ Each of the following lines provides information about a given base in the seque
 * Index n-1  
 * Index n+1  
 * Number of the base to which n is paired. No pairing is indicated by 0 (zero).  
-* Natural numbering. RNAstructure ignores the actual value given in natural numbering, so it is easiest to repeat n here.  本案例中有3个结果表示，rnastructure，预测的3个结构 
+* Natural numbering. RNAstructure ignores the actual value given in natural numbering, so it is easiest to repeat n here.  本案例中有3个结果表示，rnastructure，预测的3个结构, 中间的energy表示自由能，我理解为预测分数，分数越低可能性越大 
+```
+## `ViennaFold`: prediction from nucleotide sequence alone  
+`ViennaFold` 是一种替代的基于热力学的 RNA 结构预测方法.  
+### Running `Vienna RNAfold` from the command line  
+First we need to download tools:  
+sudo apt install vienna-rna  
+conda install -c bioconda viennarna  
+pip install ViennaRNA [https://pypi.org/project/ViennaRNA/]
+```
+RNAfold < ~/data/18s.fasta > ~/18s_vienna_pred.txt
+or Please read 002.RNAfold.sh
 ```
