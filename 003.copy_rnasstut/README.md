@@ -75,5 +75,12 @@ This is a `*Connectivity Table (CT) file*`, described in detail.
 ```
 CT文件包含序列的二级结构信息,Its format just like this: 
 Start of first line: number of bases in the sequence
-End of first line: title of the structure 
+End of first line: title of the structure  
+Each of the following lines provides information about a given base in the sequence. Each base has its own line, with these elements in order:  
+* Base number: index n  
+* Base (A, C, G, T, U, X)  
+* Index n-1  
+* Index n+1  
+* Number of the base to which n is paired. No pairing is indicated by 0 (zero).  
+* Natural numbering. RNAstructure ignores the actual value given in natural numbering, so it is easiest to repeat n here.   
 ```
