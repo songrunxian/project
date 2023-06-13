@@ -47,3 +47,4 @@ print("Secondary structure:", structure)
 print("Minimum free energy (MFE):", mfe)
 ```
 ## `RNAstructure`: prediction from nucleotide sequence alone
+We will first try to predict the secondary structure of an *A. thaliana* 18S rRNA fragment from its sequence alone, using the `RNAstructure` `Fold` method.
