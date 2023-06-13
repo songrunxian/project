@@ -51,8 +51,15 @@ print("Minimum free energy (MFE):", mfe)
 We will first try to predict the secondary structure of an *A. thaliana* 18S rRNA fragment from its sequence alone, using the `RNAstructure` `Fold` method.
 ### Running `RNAstructure Fold` from the command line
 可使用命令行或线上工具  
-`线上工具`:*http://rna.urmc.rochester.edu/RNAstructureWeb/Servers/Predict1/Predict1.html* 
-在运行“Fold”之前，我们必须设置一个环境变量，它指向一个包含折叠热力学参数的文件夹。 这些是 RNAstructure 包的一部分:
+`线上工具`:*http://rna.urmc.rochester.edu/RNAstructureWeb/Servers/Predict1/Predict1.html* but this website maybe wrong 
+在运行“Fold”之前，我们必须设置一个环境变量，它指向一个包含折叠热力学参数的文件夹。 这些是 RNAstructure 包的一部分:  
+We need to download tools, and RNAstructure `*Registration Form*` just like this :
+```
+Name: 宋润先
+Institution: 东北师范大学
+Department: 遗传学院
+E-mail address: 13359850710@163.com
+``` 
 ```
 export DATAPATH=~/RNAstructure/data_tables
 ``` 
