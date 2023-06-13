@@ -95,4 +95,5 @@ pip install ViennaRNA [https://pypi.org/project/ViennaRNA/]
 ```
 RNAfold < ~/data/18s.fasta > ~/18s_vienna_pred.txt
 or Please read 002.RNAfold.sh
+In this example 配对的碱基用圆括号表示，而不配对的碱基用点表示
 ```
