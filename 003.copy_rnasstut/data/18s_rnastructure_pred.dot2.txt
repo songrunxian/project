@@ -1,0 +1,3 @@
+>ENERGY = -28.5  Ath_18S
+GCTAACTAGCTACGTGGAGGCATCCCTTCACGGCCGGCTTCTTAGAGGGACTATGGCCGTTTAGGCCAAGGAAGTTTGAGGCAATAACAGG
+(((....((((.((((((((....)))))))).((..((....))..)).((.(((((.....))))).)).))))...))).........

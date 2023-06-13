@@ -98,3 +98,16 @@ or Please read 002.RNAfold.sh
 In this example 配对的碱基用圆括号表示，而不配对的碱基用点表示
 In this example, only the MFE structure is listed. The free energy estimate is provided at the end of the file.
 ```
+## Viewing predicted structures
+We're going to compare `RNAstructure` and `Vienna` predictions, but first we need to make sure both structure files are in the same format. To convert RNAstructure's CT file into dot bracket notation, use:  
+```
+~/RNAstructure/exe/ct2dot ~/18s_rnastructure_pred.txt 1 ~/18s_rnastructure_pred.dot.txt 
+or Please read 003.ct2dot.sh
+```
+Before we plot the structures, we should add a better label  to the beginning of each file. 
+```
+sed "1s/.*/\>rnastructure/" ~/18s_rnastructure_pred.dot.txt > rnastructure.dot
+sed "1s/.*/\>vienna/" ~/18s_vienna_pred.txt > vienna.dot
+or Please read 004.sameid.sh
+```
+
