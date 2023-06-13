@@ -69,3 +69,11 @@ We can now run `Fold` to predict the RNA structure:
 ```
 `~/data/18S_rRNA.fasta` is the input sequence (18S rRNA in fasta format).
 `~/18s_rnastructure_pred.txt` is the output file.
+### The output
+Open `~/18s_rnastructure_pred.txt`,  
+This is a `*Connectivity Table (CT) file*`, described in detail.
+```
+CT文件包含序列的二级结构信息,Its format just like this: 
+Start of first line: number of bases in the sequence
+End of first line: title of the structure 
+```
