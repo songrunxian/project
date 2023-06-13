@@ -110,4 +110,52 @@ sed "1s/.*/\>rnastructure/" ~/18s_rnastructure_pred.dot.txt > rnastructure.dot
 sed "1s/.*/\>vienna/" ~/18s_vienna_pred.txt > vienna.dot
 or Please read 004.sameid.sh
 ```
+We can now generate structure diagrams for both predictions using `Vienna`'s `RNAplot`:
 
+```
+RNAplot -o svg < ~/rnastructure.dot
+RNAplot -o svg < ~/vienna.dot
+or Please read 005.picture.sh
+```
+## `RNAstructure`: prediction using sequence and constraints
+So far, we've predicted RNA structures using sequence alone. This is not particularly accurate. We can try to improve the prediction by including extra information from a chemical probing experiment. These extra data are called constraints, and *RNAstructure* uses these in the thermodynamics calculations as pseudo free energy terms.  
+到目前为止，我们已经仅使用序列预测了 RNA 结构。 这不是特别准确。 我们可以尝试通过包含来自化学探测实验的额外信息来改进预测。 这些额外的数据称为约束，*RNAstructure* 在热力学计算中将这些数据用作伪自由能项。  
+We'll be using constraints generated from a dimethyl sulfate (DMS) probing experiment of the 18S rRNA. DMS reacts with C and A nucleotides that are not involved in base pairing. The experiment produces normalised reactivity values. Values approaching 1 or above indicate a strong reactivity and thus a high probability that the corresponding base is unpaired.  
+我们将使用从 18S rRNA 的硫酸二甲酯 (DMS) 探测实验生成的约束。 DMS 与不参与碱基配对的 C 和 A 核苷酸发生反应。 实验产生归一化的反应性值。 接近 1 或以上的值表示强烈的反应性，因此相应碱基未配对的可能性很高。  
+### The constraints file
+The file `~/data/18s_constraints_rnastructure.txt` contains normalised DMS reactivities in a format that `RNAstructure` understands.  
+This file just like this:  
+```
+2	0.012685795205
+3	0.0
+4	0.0
+11	0.369865767367
+13	0.0
+14	0.0
+17	0.0
+18	0.0
+19	0.0
+22	0.291074839291
+...
+```
+第一列是序列位置，第二列是标准化的 DMS 反应性。 缺失的位置是 G 或 U 核苷酸，其中 DMS 反应性不适用。  
+We'll now run a prediction using these constraints:
+```
+Fold 18s.fasta 18s_rnastructure_pred_constrained.txt -dms 18s_constraints_rnastructure.txt
+```
+You can check out the output by drawing a structure plot as described earlier.
+or Please see 006.strictFold.sh
+## `ViennaFold`: prediction from sequence and constraints
+The file `18s_constraints_vienna.txt` contains some constraints in `ViennaRNA`'s format:  
+```
+>Ath_18S
+TACCTGGTTGATCCTGCCAGTAGTCATATGCTTGTCTCAAAGATTAAG ...
+.|||........||..|||..|..||.|..|....|...x..x..... ...
+```
+`.` 表示没有约束，`|` 表示碱基必须配对，`x` 表示碱基必须不配对  
+A detailed description of the format can be found [here](http://www.tbi.univie.ac.at/RNA/RNAfold.html).
+这些 Vienna 约束是通过将反应性值低于 0.3 的任何碱基视为配对的，将高于 0.7 的任何值视为未配对的碱基而产生的。 反应性介于 0.3 和 0.7 之间的碱基被认为是不明确的，不受约束。 这是处理数据的一种非常粗略的方式； 在实践中，人们可能想尝试不同的分类阈值。
+```
+RNAfold < ~/data/18s_constraints_vienna.txt > ~/18s_vienna_pred_constrained.txt -C
+```
+额外的“-C”选项表示我们正在约束模式下运行。
