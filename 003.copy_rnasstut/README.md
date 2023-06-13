@@ -45,3 +45,4 @@ structure, mfe = fold(rna_sequence)
 print("Secondary structure:", structure)
 print("Minimum free energy (MFE):", mfe)
 ```
+## `RNAstructure`: prediction from nucleotide sequence alone
