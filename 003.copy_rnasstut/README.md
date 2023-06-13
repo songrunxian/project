@@ -82,5 +82,5 @@ Each of the following lines provides information about a given base in the seque
 * Index n-1  
 * Index n+1  
 * Number of the base to which n is paired. No pairing is indicated by 0 (zero).  
-* Natural numbering. RNAstructure ignores the actual value given in natural numbering, so it is easiest to repeat n here.   
+* Natural numbering. RNAstructure ignores the actual value given in natural numbering, so it is easiest to repeat n here.  本案例中有3个结果表示，rnastructure，预测的3个结构 
 ```
