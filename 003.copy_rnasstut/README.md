@@ -159,3 +159,39 @@ A detailed description of the format can be found [here](http://www.tbi.univie.a
 RNAfold < ~/data/18s_constraints_vienna.txt > ~/18s_vienna_pred_constrained.txt -C
 ```
 额外的“-C”选项表示我们正在约束模式下运行。
+## Determining structure prediction accuracy[确定结构预测精度]
+We can assess the performance of each prediction by comparing against a high-confidence reference stucture. The best structure available for the 18S rRNA comes from phylogenetic comparisons. The file `18s_phylogenetic.txt` contains a summary of this structure:
+我们可以通过与高置信度参考结构进行比较来评估每个预测的性能。18S rRNA的最佳结构来自系统发育比较。文件“18s_systematicy.txt”包含此结构的摘要：
+```
+1	T	s
+2	A	s
+3	C	s
+4	C	d
+5	T	d
+6	G	d
+7	G	d
+8	T	s
+9	T	s
+10	G	s
+...
+```
+Column 1 is the position, column 2 the base, 在第3列中，“s”表示碱基是单链的，而“d”表示碱基成对（即双链）.
+为了评估准确性，我们将每个预测与参考进行比较，并计算每个位置的真阳性（TP）、真阴性（TN）、假阳性（FN）和假阴性（FN）。我们将使用python脚本来完成此操作。为了将RNA结构*在计算机上*和*在体内*的预测与系统发育结构进行比较：
+`python3 ~/utils/compare_structures.py -r=~/18s_rnastructure_pred.txt ~/data/18s_phylogenetic.txt`
+
+`python3 ~/utils/compare_structures.py -r=~/18s_rnastructure_pred_constrained.txt ~/data/18s_phylogenetic.txt`
+
+Likewise the `ViennaFold` predictions can be compared against the phylogenetic structure:
+
+`python3 ~/utils/compare_structures.py -v=~/18s_vienna_pred.txt ~/data/18s_phylogenetic.txt`
+
+`python3 ~/utils/compare_structures.py -v=~/18s_vienna_pred_constrained.txt ~/data/18s_phylogenetic.txt`
+
+You should see a slight improvement in predictive performance when secondary structure constraints are used.
+
+我们需要使用片段，因为18S rRNA的几个区域被蛋白质覆盖，这会干扰结构预测。位置1345和1435之间的片段给出了不错的结果，因为它只包含片段内的相互作用的蛋白。
+如果您想尝试不同的片段，脚本utils/make_fragment.py会将开始和停止位置作为参数，并生成前缀为“18s_”的文件，这些文件可以用作预测的输入，如前所述。  
+```
+python3 make_fragment.py 100 200
+```
+选择要测试的片段时，可以参考18S结构图`~/data/18S_structure_diagram.png`。

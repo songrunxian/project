@@ -1,1 +1,3 @@
-18s_constraints_vienna.txt 这个约束文本中约束条件的正确性是需要我们确认的,以及他是怎么来的
+18s_constraints_vienna.txt 这个约束文本中约束条件的正确性是需要我们确认的,以及他是怎么来的?
+18s_phylogenetic.txt 置信度，还有评估该置信的参考要从哪里获得?
+full_18s_phylogenetic.txt	;	full_18s_reactivities.txt	这两个文件要如何获得
